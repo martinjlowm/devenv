@@ -1,14 +1,17 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, inputs, ... }:
 
 let
   cfg = config.languages.rust;
 
-  fenix = config.lib.getInput {
+  devenvlib = import ../devenv-lib.nix { inherit pkgs config inputs lib; };
+
+  fenix = devenvlib.getInput {
     name = "fenix";
     url = "github:nix-community/fenix";
     attribute = "languages.rust.version";
     follows = [ "nixpkgs" ];
   };
+
 in
 {
   imports = [

@@ -1,4 +1,4 @@
-{ pkgs, config, lib, self, ... }:
+{ pkgs, config, lib, inputs, self, ... }:
 
 let
   projectName = name:
@@ -7,15 +7,16 @@ let
     else config.name;
   types = lib.types;
   envContainerName = builtins.getEnv "DEVENV_CONTAINER";
+  devenvlib = import ./devenv-lib.nix { inherit pkgs config inputs lib; };
 
-  nix2containerInput = config.lib.getInput {
+  nix2containerInput = devenvlib.getInput {
     name = "nix2container";
     url = "github:nlewo/nix2container";
     attribute = "containers";
     follows = [ "nixpkgs" ];
   };
   nix2container = nix2containerInput.packages.${pkgs.stdenv.system};
-  mk-shell-bin = config.lib.getInput {
+  mk-shell-bin = devenvlib.getInput {
     name = "mk-shell-bin";
     url = "github:rrbutani/nix-mk-shell-bin";
     attribute = "containers";
