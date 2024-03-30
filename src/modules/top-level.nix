@@ -137,6 +137,7 @@ in
     ./update-check.nix
     ./containers.nix
     ./debug.nix
+    ./cachix.nix
   ]
   ++ (listEntries ./languages)
   ++ (listEntries ./services)
