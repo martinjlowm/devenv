@@ -138,6 +138,8 @@ in
     ./containers.nix
     ./debug.nix
     ./cachix.nix
+    ./tests.nix
+    ./lib.nix
   ]
   ++ (listEntries ./languages)
   ++ (listEntries ./services)
